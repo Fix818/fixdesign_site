@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>אתר פיקס דיזיין</title>
+  <style>
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      direction: rtl;
+      text-align: right;
+      margin: 0;
+      padding: 0;
+      background-image: url("תמונת רקע 2.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: black;
+      background-attachment: fixed;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 100px;
+      /* קטן את המרווח מימין */
+      margin-left: 100px;
+      /* קטן את המרווח משמאל */
+
+    }
+
+    nav {
+      background-color: black;
+      padding: 10px;
+      width: 100%;
+      font-size: 18px;
+      /* קטן את גודל הפונט */
+    }
+
+    nav ul {
+      list-style-type: none;
+      padding: 5%;
+      text-align: right;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin: 10px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      padding: 5px 10px;
+      /* קטן את הרווחים */
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: yellow;
+      color: black;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      /* קטן את התמונות */
+      grid-gap: 15px;
+      /* קטן את הרווחים */
+      padding: 15px;
+      /* קטן את הרווחים */
+    }
+
+    .gallery img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: auto;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+      /* קטן את הצל */
+    }
+
+    footer {
+      color: white;
+      text-align: center;
+      margin: 10px;
+      /* קטן את המרווח */
+    }
+
+    /* עיצוב עבור מסכים ניידים */
+    @media only screen and (max-width: 600px) {
+      nav ul {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: black;
+        width: 100%;
+        height: 100vh;
+        padding-top: 80px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+
+      /* עיצוב עבור מסכים ניידים */
+      @media only screen and (max-width: 600px) {
+        .standard-image {
+          max-width: 100%;
+          /* הגבלת הרוחב המרבי של התמונה ל-100% */
+          height: auto;
+          /* גובה אוטומטי שמתאים לרוחב */
+        }
+      }
+
+      nav ul li {
+        display: block;
+        margin: 10px;
+      }
+
+      nav ul li a {
+        padding: 10px;
+        font-size: 16px;
+        /* קטן את גודל הפונט */
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      .hamburger {
+
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+      }
+
+      .hamburger img {
+        width: 5px;
+        /* קטן את גודל האייקון */
+        height: auto;
+      }
+
+      .logo-text {
+        display: none;
+      }
+    }
+
+    /* עיצוב עבור מסכים בינוניים וגדולים */
+    @media only screen and (min-width: 601px) {
+      .hamburger {
+        display: none;
+        /* הסתרת ההמבורגר איקון במסכים גדולים */
+      }
+    }
+
+    /* עיצוב עבור מסכים קטנים */
+    @media only screen and (max-width: 600px) {
+      .hamburger {
+        position: absolute;
+        /* שינוי המיקום למצב absolute עבור מסכים קטנים */
+        top: 20px;
+        /* מיקום מוגדר מלמעלה */
+        right: 20px;
+        /* מיקום מוגדר מימין */
+      }
+
+
+      .logo-text {
+        margin-right: 0;
+        /* מקדמים את הלוגו כלפי שמאל במסכים קטנים */
+      }
+    }
+
+
+    #contact-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+
+    #contact-button button {
+      background-color: yellow;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      bottom: 50%;
+      right: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .popup label,
+    .popup input,
+    .popup textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    /* תצוגת ההמבורגר רק עבור מסכים ניידים */
+    @media only screen and (min-width: 400px) {
+      .hamburger {
+        display: none;
+      }
+
+      @media only screen and (max-width: 600px) {
+
+        /* כאן תוסיף את הסגנון של הכפתור במסכי טלפון */
+        #contact-button {
+          display: none;
+        }
+      }
+
+
+      .popup {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        /* מימין למטה */
+        right: 20px;
+        /* מימין למטה */
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        width: 80%;
+        /* קטן את הרוחב */
+        max-width: 300px;
+        /* הגבלת רוחב מקסימלי */
+      }
+
+      #contact-button {
+        display: none;
+        /* הסתרת הכפתור בתחילה */
+      }
+
+      /* תצוגת הכפתור בכל סוגי המסכים */
+      @media only screen and (min-width: 400px) {
+        #contact-button {
+          display: block;
+          /* הצגת הכפתור בכל סוגי המסכים */
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+        }
+      }
+
+
+      .standard-image {
+        max-width: 100%;
+        /* הגבלת הרוחב המרבי של התמונה ל-100% */
+        height: auto;
+        /* גובה אוטומטי שמתאים לרוחב */
+      }
+  </style>
+</head>
+
+<body>
+  <header>
+     <img src="logo fixdesign.png" alt="לוגו" width="200" height="AUTO" class="logo-mobile" onclick="returnToHomePage()">
+    <span class="logo-text">אתר פיקס דיזיין</span>
+    <div class="hamburger" onclick="toggleMenu()">
+      <img src="hamburger-icon.png" alt="תפריט" style="width: 30px; height: 30px;">
+
+    </div>
+    <nav>
+      <ul id="menu">
+        <li><a href="#home">דף הבית</a></li>
+        <li><a href="#about">אודותינו</a></li>
+        <li><a href="#services">סוגי שלטים</a></li>
+        <li><a href="#contact">צור קשר</a></li>
+        <li><a href="tel:0523097273">052-3097273</a></li>
+        <li><a href="tel:0524559366">052-4559366</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <section id="home">
+    <P style="font-size: 2vh; margin-top: 50px; margin-bottom: 50px;">
+      שלטים לאתרי בנייה: מידע חיוני ובטיחות
+      <br>
+      שלטי אתרי בנייה הם שלטים המוצבים סביב אתרי בנייה
+      <br>
+      ומספקים מידע חיוני לציבור. הם כוללים בדרך כלל את שם
+      <br>
+      הפרויקט, שם הקבלן, פרטי התקשרות, תאריך התחלת וסיום
+      <br>
+      העבודות, וכן הוראות בטיחות חשובות.
+    </P>
+
+
+
+
+  </section>
+
+  <section id="about">
+    <img src="ספייס 1.png" alt="תמונה 1" class="standard-image">
+    <img src="יוניב 2.png" alt="תמונה 1" class="standard-image">
+    <img src="כביש היציאה 3.png" alt="תמונה 1" class="standard-image">
+    <img src="בולווארד 4.png" alt="תמונה 1" class="standard-image">
+    <img src="ד סנטר 5.png" alt="תמונה 1" class="standard-image">
+    <img src="עבודות פיתוח 6.png" alt="תמונה 1" class="standard-image">
+    <img src="קבוצת חסון 7.png" alt="תמונה 1" class="standard-image">
+   
+    
+    
+    
+
+
+
+
+
+
+
+    <!-- כאן ניתן להוסיף מידע נוסף אודות העסק או הארגון -->
+  </section>
+
+
+
+  <section id="services">
+    <h2 style="color: white; font-size: 3vh;">פרוייקטים אחרונים</h2>
+    <h3 style="color: #FFF44F; font-size: 4.5vh;">עיצוב שלטים ומיתוג לעסקים</h3>
+    <h4 style="color: white; font-size: 1.5vh;">אנו מבצעים את כל סוגי השלטים
+      ונותנים אחריות מלאה על כל עבודה!</h4>
+  </section>
+
+  <section id="contact">
+    <div class="gallery">
+
+      <a href="Page3.html"><img src="שלטי חוץ.png" alt="תמונה 1"></a>
+
+      <a href="Page4.html"><img src="שלטי פנים.png" alt="תמונה2"></a>
+
+      <a href="Page5.html"><img src="מיתוג עסקים.png" alt="תמונה 4"></a>
+
+      <a href="Page6.html"><img src="מיתוג רכבים.png" alt="תמונה 5"></a>
+
+      <a href="Page7.html"><img src="שלטי לד.png" alt="תמונה 6"></a>
+
+      <a href="Page8.html"><img src="שלטי זכוכית.png" alt="תמונה 7"></a>
+
+      <a href="Page9.html"><img src="מעמדי פרסום.png" alt="תמונה 8"></a>
+
+      <a href="Page10.html"><img src="שלטים לעיריות.png" alt="תמונה 9"></a>
+
+      <a href="Page11.html"><img src="שלטים לאתרים.png" alt="תמונה 10"></a>
+
+      <a href="Page12.html"><img src="גידור לאתרי בניה.png" alt="תמונה 11"></a>
+
+      <a href="Page13.html"><img src="סוכך לבית ולעסק.png" alt="תמונה 12"></a>
+
+    </div>
+  </section>
+
+  <iframe src="https://maps.app.goo.gl/38S6jUYBENFUu9uz5" width="100%" height="200" style="border:0; margin-top: 10px;"
+    allowfullscreen="" loading="lazy"></iframe>
+  </section>
+  <footer>
+    <p>כל הזכויות שמורות ל Fixdesign © 2024</p>
+  </footer>
+
+  <section id="whatsapp">
+    <a href="https://wa.me/052-3097273" style="position: fixed; left: 20px; bottom: 20px;">
+      <img src="whatsapp-icon-logo-vector.png" alt="וואטסאפ" width="40" height="40"
+        style="border-radius: 50%; background-color: green;">
+    </a>
+  </section>
+
+  <section id="contact">
+    <div class="gallery">
+      <!-- כאן יופיע הקוד הקודם שלך -->
+
+      <!-- הוספת כפתור הצור קשר החדש -->
+      <div id="contact-button">
+        <button onclick="openContactPopup()">דברו איתנו!</button>
+      </div>
+
+      <!-- פופאפ פורם -->
+      <div id="contact-popup" class="popup">
+        <form action="mailto:Fixdesign818@gmail.com" method="POST" enctype="text/plain"
+          style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+          <label for="fullName" style="color: black;">שם מלא:</label><br>
+          <input type="text" id="fullName" name="fullName" required
+            style="width: 100%; padding: 5px; margin-bottom: 10px; border-radius: 5px;"><br>
+          <label for="phone" style="color: black;">טלפון:</label><br>
+          <input type="tel" id="phone" name="phone" required
+            style="width: 100%; padding: 5px; margin-bottom: 10px; border-radius: 5px;"><br>
+          <label for="email" style="color: black;">אימייל:</label> <br>
+          <input type="email" id="email" name="email" required
+            style="width: 100%; padding: 5px; margin-bottom: 10px; border-radius: 5px;"><br>
+          <label for="message" style="color: black;">תוכן ההודעה:</label><br>
+          <textarea id="message" name="message" rows="4" required
+            style="width: 100%; padding: 5px; margin-bottom: 10px; border-radius: 5px;"></textarea><br>
+          <input type="submit" value="שלח"
+            style="background-color: #ff0000; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">
+        </form>
+        <span onclick="closeContactPopup()"
+          style="color: black; position: absolute; top: 10px; right: 10px; cursor: pointer;">X</span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // פונקציה לפתיחת הפופ-אפ
+    function openContactPopup() {
+      document.getElementById("contact-popup").style.display = "block";
+    }
+
+    // פונקציה לסגירת הפופ-אפ
+    function closeContactPopup() {
+      document.getElementById("contact-popup").style.display = "none";
+    }
+
+    function openContactPopup() {
+      var popup = document.getElementById("contact-popup");
+      popup.style.display = "block";
+    }
+
+
+    // פונקציה לחזרה לעמוד הבית
+    function returnToHomePage() {
+        window.location.href = "index.html"; // הפניה מחדש לעמוד הבית
+    }
+
+
+  </script>
+
+
+  <script>
+    function toggleMenu() {
+      var menu = document.getElementById("menu");
+      menu.classList.toggle("show");
+    }
+  </script>
+
+
+
+</body>
+
+</html>
